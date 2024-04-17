@@ -3,10 +3,7 @@ package controller;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Controller {
     List<String> fruits;
@@ -20,7 +17,7 @@ public class Controller {
             BufferedReader reader = new BufferedReader(file);
             String line;
             while ((line = reader.readLine()) != null){
-                fruits.addAll(Arrays.asList(line.split(" ")));
+                fruits.addAll(Arrays.asList(line.split("\\s+")));
             }
         } catch (IOException e){
             System.err.println(e.getMessage());
@@ -55,12 +52,23 @@ public class Controller {
     }
 
     public void theLongName () {
-        String name = "";
-        for (String fruit : hashFruits.keySet()) {
-            if (fruit.length() > name.length()) {
-                name = fruit;
+        if (fileIsLoad()) {
+            String name = "";
+            for (String fruit : hashFruits.keySet()) {
+                if (fruit.length() > name.length()) {
+                    name = fruit;
+                }
             }
+            System.out.println("Самое длинное название: " + name);
         }
-        System.out.println("Самое длинное название: " + name);
+    }
+
+    public void sortedFruits() {
+        if (fileIsLoad()) {
+            hashFruits.entrySet()
+                    .stream()
+                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                    .forEach(System.out::println);
+        }
     }
 }

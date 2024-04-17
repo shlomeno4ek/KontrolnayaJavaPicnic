@@ -23,15 +23,19 @@ public class View {
                     controller.LoadFile(file);
                     break;
                 case 2 :
-                    if (controller.isLoad()) {
-                        controller.allFruitsAndVeget();
-                    } else {
-                        System.out.println("Файл не загружен!");
-                    }
+                    controller.allFruitsAndVeget();
                     break;
                 case 3 :
                     controller.theLongName();
                     break;
+                case 4 :
+                    controller.sortedFruits();
+                    break;
+                case 0 :
+                    System.out.println("До свидания!");
+                    break;
+                default :
+                    System.out.println("Такой команды не существует!");
 
 
             }
@@ -41,13 +45,14 @@ public class View {
 
     public int menu() {
         System.out.println("""
-                Выберите действие:
+                \nМеню:
                 1. Загрузить из файла названия фруктов
                 2. Подсчитать сколько фруктов и овощей всего:
                 3. Найти самое длинное название
                 4. Показать самые популярные фрукты и овощи:
                 0. Выход""");
         Scanner scanner = new Scanner(System.in);
+        System.out.print("\nВыберите действие: ");
         String choice = scanner.next();
         if (choice.matches("\\d+")) {
             return Integer.parseInt(choice);
